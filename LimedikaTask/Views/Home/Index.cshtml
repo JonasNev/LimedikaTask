@@ -1,0 +1,42 @@
+﻿@model List<PharmacyDetails>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+<div class="text-center">
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>PostCode</th>
+        </tr>
+        @foreach (var pharmacy in Model)
+        {
+            <tr>
+                <td>@pharmacy.Id</td>
+                <td>@pharmacy.Name</td>
+                <td>@pharmacy.Address</td>
+                <td>@pharmacy.PostCode</td>
+            </tr>
+        }
+        </tr>
+        </tr>
+    </table>
+</div>
