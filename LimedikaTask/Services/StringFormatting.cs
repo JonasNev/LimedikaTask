@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LimedikaTask.Services
 {
-    public class StringFormatting
+    public class StringFormatting : IStringFormatting
     {
         public string CreateQuery(string address, string key, string baseUrl)
         {

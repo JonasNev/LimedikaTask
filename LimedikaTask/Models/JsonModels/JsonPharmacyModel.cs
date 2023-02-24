@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LimedikaTask.Models
+namespace LimedikaTask.Models.JsonModels
 {
     public class JsonPharmacyModel
     {
-
         public class RootObject
         {
             public Pharmacy[]? PharmacyList { get; set; }

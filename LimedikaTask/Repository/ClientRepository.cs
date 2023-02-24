@@ -1,5 +1,6 @@
 ﻿using LimedikaTask.Data;
-using LimedikaTask.Models;
+using LimedikaTask.Models.DatabaseModels;
+using LimedikaTask.Models.JsonModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace LimedikaTask.Repository
 {
-    public class ClientRepository
+    public class ClientRepository : IClientRepository
     {
         private readonly DataContext _context;
-        private readonly LogRepository _logRepository;
+        private readonly ILogRepository _logRepository;
 
-        public ClientRepository(DataContext context,LogRepository logRepository)
+        public ClientRepository(DataContext context, ILogRepository logRepository)
         {
             _context = context;
             _logRepository = logRepository;
@@ -39,15 +40,16 @@ namespace LimedikaTask.Repository
                         Name = client.Name,
                     });
                     _context.SaveChanges();
-                    _logRepository.UpdateLogs(_context.PharmacyDetails.FirstOrDefault(x => x.Address == client.Address));
-
+                    var createdEntry = _context.PharmacyDetails.FirstOrDefault(x => x.Address == client.Address);
+                    if (createdEntry != null)
+                    _logRepository.UpdateLogs(createdEntry);
                 }
             }
         }
 
         public PharmacyDetails GetByAdress(string adress)
         {
-            return _context.PharmacyDetails.ToList().FirstOrDefault(x => x.Address == adress);
+            return _context.PharmacyDetails.FirstOrDefault(x => x.Address == adress);
         }
 
         public void Update(PharmacyDetails pharmacy)

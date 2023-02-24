@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LimedikaTask.Models
+namespace LimedikaTask.Models.DatabaseModels
 {
     public class LogModel
     {

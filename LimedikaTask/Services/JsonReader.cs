@@ -1,4 +1,4 @@
-﻿using LimedikaTask.Models;
+﻿using LimedikaTask.Models.JsonModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace LimedikaTask.Services
 {
-    public class JsonReader
+    public class JsonReader : IJsonReader
     {
         string path = Path.Combine(Environment.CurrentDirectory, @"Files\Json\", "klientai.json");
-        public List<JsonPharmacyModel.Pharmacy> ReadJson()
+        public List<JsonPharmacyModel.Pharmacy>? ReadJson()
         {
             using (StreamReader r = new StreamReader(path))
             {

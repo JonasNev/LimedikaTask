@@ -1,5 +1,5 @@
 ﻿using LimedikaTask.Data;
-using LimedikaTask.Models;
+using LimedikaTask.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LimedikaTask.Repository
 {
-    public class LogRepository
+    public class LogRepository : ILogRepository
     {
         private readonly DataContext _context;
 
@@ -20,9 +20,10 @@ namespace LimedikaTask.Repository
 
         public void UpdateLogs(PharmacyDetails pharmacy)
         {
-            if (_context.Log.ToList().Select(x=> x.PharmacyId).Contains(pharmacy.Id))
+            var logToUpdate = _context.Log.FirstOrDefault(x => x.PharmacyId == pharmacy.Id);
+
+            if (logToUpdate != null)
             {
-                var logToUpdate = _context.Log.FirstOrDefault(x => x.PharmacyId == pharmacy.Id);
                 logToUpdate.UpdatedPostCode = DateTime.Now;
                 _context.Entry(logToUpdate).State = EntityState.Modified;
             }

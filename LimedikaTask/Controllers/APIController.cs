@@ -10,18 +10,17 @@ namespace LimedikaTask.Controllers
 {
     public class APIController : Controller
     {
-        private readonly ClientRepository _clientRepository;
-        public IConfiguration _configuration { get; }
-        public APIController(ClientRepository clientRepository, IConfiguration configuration)
+        private readonly IClientRepository _clientRepository;
+        private readonly IApiService _apiService;
+        public APIController(IClientRepository clientRepository, IApiService apiService)
         {
             _clientRepository = clientRepository;
-            _configuration = configuration;
+            _apiService = apiService;
         }
 
         public async Task<ActionResult> UpdatePostCode()
         {
-            APIService ApiService = new APIService(_clientRepository, _configuration);
-            await ApiService.UpdatePostalCodes();
+            await _apiService.UpdatePostalCodes();
             return View("~/Views/Home/Index.cshtml", _clientRepository.GetAll());
         }
     }

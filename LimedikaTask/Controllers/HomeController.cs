@@ -1,5 +1,6 @@
 ﻿using LimedikaTask.Data;
 using LimedikaTask.Models;
+using LimedikaTask.Models.ViewModels;
 using LimedikaTask.Repository;
 using LimedikaTask.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,22 +11,27 @@ namespace LimedikaTask.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ClientRepository _clientRepository;
+        private readonly IClientRepository _clientRepository;
+        private readonly IJsonReader _jsonReader;
 
-        public HomeController(ClientRepository clientRepository)
+        public HomeController(IClientRepository clientRepository, IJsonReader jsonReader)
         {
             _clientRepository = clientRepository;
+            _jsonReader = jsonReader;
         }
 
         public IActionResult Index()
         {
             return View(_clientRepository.GetAll());
         }
+
         public IActionResult ImportClients()
         {
-            JsonReader jsonService = new JsonReader();
-            var clientList = jsonService.ReadJson();
-            _clientRepository.UpdateList(clientList);
+            var clientList = _jsonReader.ReadJson();
+            if (clientList != null)
+            {
+                _clientRepository.UpdateList(clientList);
+            }
             return View("~/Views/Home/Index.cshtml", _clientRepository.GetAll());
         }
 

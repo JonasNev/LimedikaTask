@@ -1,4 +1,4 @@
-﻿using LimedikaTask.Models;
+﻿using LimedikaTask.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
-﻿@model List<PharmacyDetails>
+﻿@using LimedikaTask.Models.DatabaseModels
+@model List<PharmacyDetails>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -36,7 +37,5 @@ tr:nth-child(even) {
                 <td>@pharmacy.PostCode</td>
             </tr>
         }
-        </tr>
-        </tr>
     </table>
 </div>

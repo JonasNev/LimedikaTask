@@ -1,5 +1,8 @@
+using LimedikaTask;
 using LimedikaTask.Data;
+using LimedikaTask.PostitAPI;
 using LimedikaTask.Repository;
+using LimedikaTask.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
@@ -7,9 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<DataContext>(d => d.UseSqlServer("Server=.;Database=LimedikaTask;Trusted_Connection=True;TrustServerCertificate=True;"), ServiceLifetime.Transient);
-builder.Services.AddTransient<ClientRepository>();
-builder.Services.AddTransient<LogRepository>();
+builder.Services.AddDbContext<DataContext>(d => d.UseSqlServer(builder.Configuration.GetSection(Constants.Clients.ConnectionStringSecterName).Value), ServiceLifetime.Transient);
+builder.Services.AddTransient<IClientRepository, ClientRepository>();
+builder.Services.AddTransient<IJsonReader, JsonReader>();
+builder.Services.AddTransient<ILogRepository, LogRepository>();
+builder.Services.AddTransient<IApiService, ApiService>();
+builder.Services.AddTransient<IStringFormatting, StringFormatting>();
 
 var app = builder.Build();
 
