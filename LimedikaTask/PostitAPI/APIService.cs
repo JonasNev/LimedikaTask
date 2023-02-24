@@ -32,7 +32,7 @@ namespace LimedikaTask.PostitAPI
                 {
                     if (!string.IsNullOrEmpty(pharmacy.Address) && !string.IsNullOrEmpty(_apiKey))
                     {
-                        var apiQuery = _stringFormatting.CreateQuery(pharmacy.Address, _apiKey, _configuration.GetValue<string>("BaseUrl:Default"));
+                        var apiQuery = _stringFormatting.CreateQuery(pharmacy.Address, _apiKey, _configuration.GetValue<string>(Constants.Clients.BaseUrlConfigurationName));
                         HttpResponseMessage Res = await client.GetAsync(apiQuery);
                         if (Res.IsSuccessStatusCode)
                         {

@@ -12,6 +12,7 @@ namespace LimedikaTask
         {
             public const string ConnectionStringSecterName = "Clients:ConnectionString";
             public const string PostitApiKeySecretName = "Clients:ServiceApiKey";
+            public const string BaseUrlConfigurationName = "BaseUrl:Default";
         }
     }
 }
